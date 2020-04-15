@@ -21,7 +21,11 @@ namespace Intent.Modules.ModuleBuilder.Api
 
         public string GetModelTypeName()
         {
-            return GetModelType().Name;
+            var modelType = GetModelType();
+            var fullName = !string.IsNullOrWhiteSpace(modelType.Namespace)
+                ? $"{modelType.Namespace}.{modelType.Name}"
+                : modelType.Name;
+            return fullName;
         }
 
         public IModelerModelType GetModelType()

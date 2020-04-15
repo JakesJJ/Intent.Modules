@@ -64,7 +64,7 @@ namespace Intent.Modules.ModuleBuilder.Templates.RoslynProjectItemTemplatePartia
 
         private string GetModelType()
         {
-            return Model.GetTemplateModelName();
+            return NormalizeNamespace(Model.GetTemplateModelName());
         }
 
         //private bool HasDeclaresUsings()

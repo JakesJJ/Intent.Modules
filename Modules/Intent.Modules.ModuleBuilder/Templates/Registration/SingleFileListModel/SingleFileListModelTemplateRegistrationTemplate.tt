@@ -1,10 +1,9 @@
 <#@ template language="C#" inherits="IntentRoslynProjectItemTemplateBase<ITemplateDefinition>" #>
-<#@ assembly name="System.Core" #>
+<#@ assembly name="$(TargetDir)Intent.Modules.Common.dll" #>
 <#@ import namespace="Intent.Modules.Common.Templates" #>
 <#@ import namespace="Intent.Metadata.Models" #>
 <#@ import namespace="Intent.Modules.ModuleBuilder.Api" #>
 <#@ import namespace="Intent.Modules.ModuleBuilder.Helpers" #>
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +20,7 @@ using Intent.Templates;
 namespace <#= Namespace #>
 {
     [IntentManaged(Mode.Merge, Body = Mode.Merge, Signature = Mode.Fully)]
-    public class <#= ClassName #> : ListModelTemplateRegistrationBase<<#= Model.GetModelTypeName() #>>
+    public class <#= ClassName #> : ListModelTemplateRegistrationBase<<#= NormalizeNamespace(Model.GetModelTypeName()) #>>
     {
         private readonly IMetadataManager _metadataManager;
 

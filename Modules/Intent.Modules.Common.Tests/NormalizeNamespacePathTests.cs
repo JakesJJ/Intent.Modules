@@ -114,5 +114,18 @@ namespace Intent.Modules.Common.Tests
 
             Assert.Equal("Application.Movies", result);
         }
+
+        [Fact]
+        public void Scenario_ClassName_SameAsNamespacePortion()
+        {
+            var result = IntentRoslynProjectItemTemplateBase.NormalizeNamespace(
+                localNamespace: "Company.Module.Workflow.Templates",
+                foreignType: "Company.Module.Workflow.Common.WorkflowApi.Workflow",
+                knownOtherPaths: new string[] { "Company.Module.Workflow.Common.WorkflowApi" },
+                usingPaths: new string[] { "Company.Module.Workflow.Common.WorkflowApi" }
+                );
+
+            Assert.Equal("Common.WorkflowApi.Workflow", result);
+        }
     }
 }

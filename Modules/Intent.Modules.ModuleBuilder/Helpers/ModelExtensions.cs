@@ -39,7 +39,9 @@ namespace Intent.Modules.ModuleBuilder.Helpers
                 return "object";
             }
 
-            var type = modelType.Name;
+            var type = !string.IsNullOrWhiteSpace(modelType.Namespace) 
+                ? $"{modelType.Namespace}.{modelType.Name}"
+                : modelType.Name;
             if (model.GetCreationMode() == CreationMode.SingleFileListModel)
             {
                 type = $"IList<{type}>";
