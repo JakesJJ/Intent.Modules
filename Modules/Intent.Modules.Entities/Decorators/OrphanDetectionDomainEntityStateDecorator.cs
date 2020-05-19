@@ -48,7 +48,10 @@ namespace Intent.Modules.Entities.Decorators
             var result = new List<IAssociationEnd>();
             foreach (var a in model.AssociatedClasses)
             {
-                if (a.Association.AssociationType == AssociationType.Composition && a.Association.SourceEnd.Multiplicity == Multiplicity.One && a.Association.TargetEnd.Multiplicity != Multiplicity.One && a == a.Association.SourceEnd)
+                if (a.Association.AssociationType == AssociationType.Composition 
+                    && a == a.Association.SourceEnd
+                    && !a.Association.SourceEnd.IsNullable
+                    && a.Association.TargetEnd.IsCollection)
                 {
                     result.Add(a);
                 }
