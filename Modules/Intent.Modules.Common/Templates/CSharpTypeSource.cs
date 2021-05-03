@@ -27,7 +27,7 @@ namespace Intent.Modules.Common.Templates
                 var typeName = _this.GetTypeName(project, templateId, typeInfo);
                 if (!string.IsNullOrWhiteSpace(typeName) && typeInfo.IsCollection)
                 {
-                    return string.Format(collectionFormat, typeName);;
+                    return string.Format(collectionFormat, typeName);
                 }
                 return typeName;
             });
@@ -40,7 +40,7 @@ namespace Intent.Modules.Common.Templates
                 var typeName = _this.GetTypeName(application, templateId, typeInfo);
                 if (!string.IsNullOrWhiteSpace(typeName) && typeInfo.IsCollection)
                 {
-                    return string.Format(collectionFormat, typeName); ;
+                    return string.Format(collectionFormat, typeName);
                 }
                 return typeName;
             });
@@ -50,22 +50,14 @@ namespace Intent.Modules.Common.Templates
         {
             var templateInstance = GetTemplateInstance(project, templateId, typeInfo);
 
-            return templateInstance != null ? 
-                templateInstance.FullTypeName() + (typeInfo.GenericTypeParameters.Any() 
-                    ? $"<{string.Join(", ", typeInfo.GenericTypeParameters.Select(x => GetTypeName(project, templateId, x)))}>" 
-                    : "") 
-                : null;
+            return templateInstance?.FullTypeName();
         }
 
         private string GetTypeName(IApplication application, string templateId, ITypeReference typeInfo)
         {
             var templateInstance = GetTemplateInstance(application, templateId, typeInfo);
 
-            return templateInstance != null ?
-                templateInstance.FullTypeName() + (typeInfo.GenericTypeParameters.Any()
-                    ? $"<{string.Join(", ", typeInfo.GenericTypeParameters.Select(x => GetTypeName(application, templateId, x)))}>"
-                    : "")
-                : null;
+            return templateInstance?.FullTypeName();
         }
 
         public string GetClassType(ITypeReference typeInfo)

@@ -82,10 +82,8 @@ namespace Intent.Modules.Common.Templates
         {
             var templateInstance = GetTemplateInstance(project, templateId, typeInfo);
 
-            return templateInstance != null ? (string.IsNullOrWhiteSpace(templateInstance.Namespace) ? "" : templateInstance.Namespace + ".") +
-                templateInstance.ClassName + (typeInfo.GenericTypeParameters.Any() 
-                    ? $"<{string.Join(", ", typeInfo.GenericTypeParameters.Select(x => GetTypeName(project, templateId, x)))}>" 
-                    : "") 
+            return templateInstance != null
+                ? (string.IsNullOrWhiteSpace(templateInstance.Namespace) ? string.Empty : templateInstance.Namespace + ".") + templateInstance.ClassName 
                 : null;
         }
 
@@ -93,10 +91,8 @@ namespace Intent.Modules.Common.Templates
         {
             var templateInstance = GetTemplateInstance(application, templateId, typeInfo);
 
-            return templateInstance != null ? (string.IsNullOrWhiteSpace(templateInstance.Namespace) ? "" : templateInstance.Namespace + ".") +
-                                              templateInstance.ClassName + (typeInfo.GenericTypeParameters.Any()
-                                                  ? $"<{string.Join(", ", typeInfo.GenericTypeParameters.Select(x => GetTypeName(application, templateId, x)))}>"
-                                                  : "")
+            return templateInstance != null
+                ? (string.IsNullOrWhiteSpace(templateInstance.Namespace) ? string.Empty : templateInstance.Namespace + ".") + templateInstance.ClassName
                 : null;
         }
     }

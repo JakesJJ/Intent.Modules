@@ -29,6 +29,19 @@ namespace Intent.Modules.Common.TypeResolution
                 return null;
             }
 
+            var baseType = ResolveType(typeInfo, collectionFormat);
+
+            if (typeInfo.GenericTypeParameters.Any() && !string.IsNullOrWhiteSpace(GenericFormat))
+            {
+                var genericPart = string.Join(", ", typeInfo.GenericTypeParameters.Select(x => Get(x, collectionFormat)));
+                return string.Format(GenericFormat, baseType, genericPart);
+            }
+
+            return baseType;
+        }
+
+        private string ResolveType(ITypeReference typeInfo, string collectionFormat)
+        {
             foreach (var classLookup in _classTypeSources)
             {
                 var foundClass = classLookup.GetClassType(typeInfo);
@@ -39,6 +52,8 @@ namespace Intent.Modules.Common.TypeResolution
             }
             return _resolveTypeFunc(typeInfo, collectionFormat);
         }
+
+        public string GenericFormat { get; set; } = "{0}<{1}>";
     }
 
 
@@ -111,7 +126,7 @@ namespace Intent.Modules.Common.TypeResolution
 
         protected abstract string ResolveType(ITypeReference typeInfo, string collectionFormat = null);
 
-        private class ElementTypeReference: ITypeReference, IHasStereotypes
+        private class ElementTypeReference : ITypeReference, IHasStereotypes
         {
             public ElementTypeReference(IElement element)
             {
